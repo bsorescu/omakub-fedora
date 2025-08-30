@@ -17,7 +17,7 @@ fi
 # Download and install Neovim
 cd /tmp
 NVIM_VERSION="v0.11.3"
-NVIM_TARBALL="nvim-linux64.tar.gz"
+NVIM_TARBALL=" nvim-macos-x86_64.tar.gz"
 NVIM_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${NVIM_TARBALL}"
 
 # Attempt to download the tarball

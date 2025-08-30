@@ -18,13 +18,14 @@ fi
 cd /tmp
 NVIM_VERSION="v0.11.3"
 NVIM_TARBALL="nvim-linux-x86_64.tar.gz"
+NVIM_DIR="nvim-linux-x86_64"
 NVIM_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${NVIM_TARBALL}"
 
 # Attempt to download the tarball
 if ! curl -fLO "$NVIM_URL"; then
     echo "Error: Failed to download $NVIM_TARBALL from $NVIM_URL (HTTP 404 or other issue)."
     echo "Falling back to AppImage installation..."
-    NVIM_APPIMAGE="nvim.appimage"
+    NVIM_APPIMAGE="nvim-linux-x86_64.appimage"
     NVIM_APPIMAGE_URL="https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/${NVIM_APPIMAGE}"
     if ! curl -fLO "$NVIM_APPIMAGE_URL"; then
         echo "Error: Failed to download $NVIM_APPIMAGE from $NVIM_APPIMAGE_URL."
@@ -36,14 +37,14 @@ if ! curl -fLO "$NVIM_URL"; then
 else
     # Extract and install tarball
     tar -xf "$NVIM_TARBALL"
-    if [ ! -d "nvim-linux64" ]; then
+    if [ ! -d $NVIM_DIR ]; then
         echo "Error: Tarball did not contain expected nvim-linux64 directory."
         exit 1
     fi
-    sudo install nvim-linux64/bin/nvim /usr/local/bin/nvim
-    sudo cp -R nvim-linux64/lib /usr/local/
-    sudo cp -R nvim-linux64/share /usr/local/
-    rm -rf nvim-linux64 "$NVIM_TARBALL"
+    sudo install $NVIM_DIR/bin/nvim /usr/local/bin/nvim
+    sudo cp -R $NVIM_DIR/lib /usr/local/
+    sudo cp -R $NVIM_DIR/share /usr/local/
+    rm -rf $NVIM_DIR "$NVIM_TARBALL"
 fi
 cd -
 
